@@ -1,0 +1,100 @@
+openapi: 3.0.1
+info:
+  title: STD21086
+  description: HELLO WORLD
+  version: 1.0.0
+servers:
+- url: https://std21086.com
+tags:
+- name: Students
+
+- name: Courses
+paths:
+  /students:
+    get:
+      tags:
+      - Students
+      summary: Get all students
+      description: GET all students with details
+      operationId: GETstudents
+      parameters:
+      - name: page
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: integer
+      - name: page-size
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+          
+      responses:
+        200:
+          description: list of students
+          content:
+            
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Creatstudents'
+        400:
+          description: Bad request
+          content: {}
+        
+      
+  
+    post:
+      tags:
+      - Students
+      summary: create new students
+      description: Create new students from array
+      operationId: addPet
+      requestBody:
+        description: Students to be created 
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Students'
+          
+        required: true
+      responses:
+        200:
+          description: list of students
+          content:
+            
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Students'
+        400:
+          description: Bad request
+          content: {}
+      
+      x-codegen-request-body-name: body
+      
+  
+components:
+  schemas:
+    Creatstudents:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+    Students:
+      type: object
+      properties:
+        
+        name:
+          type: string
+      xml:
+        name: Category
+   
